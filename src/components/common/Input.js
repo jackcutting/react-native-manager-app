@@ -14,9 +14,17 @@ const Input = ({
 }) => {
   const { inputStyle, labelStyle, containerStyle } = styles;
 
+  const renderLabel = () => {
+    if (this.props.value !== '') {
+      return (
+        <Text style={labelStyle}>{label}</Text>
+      );
+    }
+  };
+
   return (
     <View style={containerStyle}>
-      <Text style={labelStyle}>{label}</Text>
+      {renderLabel}
       <TextInput
         autoCapitalize={autoCapitalize || 'none'}
         autoCorrect={autoCorrect || false}

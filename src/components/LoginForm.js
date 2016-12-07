@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
+
+const { height, width } = Dimensions.get('window');
 
 class LoginForm extends Component {
   onEmailChange(text) {
@@ -30,36 +32,50 @@ class LoginForm extends Component {
     );
   }
 
-  render() {
-    return (
-      <View style={styles.loginContainerStyle}>
-        <Card style={styles.loginFormStyle}>
-          <CardSection>
-            <Input
-              label="Email"
-              placeholder="email@gmail.com"
-              onChangeText={this.onEmailChange.bind(this)}
-              value={this.props.email}
-            />
-          </CardSection>
-
-          <CardSection>
-            <Input
-              secureTextEntry
-              label="Password"
-              placeholder="password"
-              onChangeText={this.onPasswordChange.bind(this)}
-              value={this.props.password}
-            />
-          </CardSection>
-
+  renderErrors() {
+    if (this.props.error) {
+      return (
+        <CardSection style={styles.errorContainerStyle}>
           <Text style={styles.errorTextStyle}>
             {this.props.error}
           </Text>
-          <CardSection>
-            {this.renderButton()}
-          </CardSection>
-        </Card>
+        </CardSection>
+      );
+    }
+  }
+
+  render() {
+    return (
+      <View style={styles.loginContainerStyle}>
+        <KeyboardAvoidingView behavior="height" style={styles.loginWrapperStyle}>
+          <Card style={styles.loginFormStyle}>
+            <CardSection>
+              <Input
+                // label="Email"
+                placeholder="Email Address"
+                onChangeText={this.onEmailChange.bind(this)}
+                value={this.props.email}
+                keyboardType="email-address"
+                returnKeyType="next"
+              />
+            </CardSection>
+
+            <CardSection>
+              <Input
+                secureTextEntry
+                placeholder="Password"
+                // placeholder="password"
+                onChangeText={this.onPasswordChange.bind(this)}
+                value={this.props.password}
+              />
+            </CardSection>
+
+            <CardSection>
+              {this.renderButton()}
+            </CardSection>
+            {this.renderErrors()}
+          </Card>
+        </KeyboardAvoidingView>
       </View>
     );
   }
@@ -67,17 +83,26 @@ class LoginForm extends Component {
 
 const styles = StyleSheet.create({
   loginContainerStyle: {
-    // flex: 1,
+    flex: 1
+  },
+  loginWrapperStyle: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
   loginFormStyle: {
     width: 300
   },
+  errorContainerStyle: {
+    padding: 10,
+    backgroundColor: '#f33'
+  },
   errorTextStyle: {
-    fontSize: 20,
+    flex: 1,
+    fontSize: 15,
     alignSelf: 'center',
-    color: 'red'
+    color: '#fff',
+    textAlign: 'center'
   }
 });
 
