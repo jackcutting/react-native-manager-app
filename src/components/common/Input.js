@@ -10,7 +10,11 @@ const Input = ({
   placeholder,
   secureTextEntry,
   selectTextOnFocus,
-  value
+  value,
+  returnKeyType,
+  blurOnSubmit,
+  onSubmitEditing,
+  ref
 }) => {
   const { inputStyle, labelStyle, containerStyle } = styles;
 
@@ -33,6 +37,9 @@ const Input = ({
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
         selectTextOnFocus={selectTextOnFocus || false}
+        returnKeyType={returnKeyType || 'default'}
+        // blurOnSubmit={blurOnSubmit || true}
+        // onSubmitEditing={onSubmitEditing}
         style={inputStyle}
         value={value}
       />
