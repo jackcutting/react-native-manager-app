@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, KeyboardAvoidingView, Alert, Image } from 'react-native';
+import { View, Text, StyleSheet, KeyboardAvoidingView, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
@@ -8,8 +8,6 @@ import { Card, CardSection, Input, Button, Spinner } from './common';
 
 const authBackground = require('../images/auth-bg.png');
 const managrLogo = require('../images/managr-logo.png');
-
-const { height, width } = Dimensions.get('window');
 
 class LoginForm extends Component {
 //   componentWillMount() {
@@ -37,6 +35,16 @@ class LoginForm extends Component {
     this.props.loginUser({ email, password });
   }
 
+  renderLoader() {
+    if (this.props.loading) {
+      return (
+        <View style={styles.loadingStyle}>
+          <Spinner size="large" />
+        </View>
+      );
+    }
+  }
+
   renderButton() {
     if (this.props.loading) {
       return <Spinner size="large" />;
@@ -52,11 +60,11 @@ class LoginForm extends Component {
   renderErrors() {
     if (this.props.error) {
       return (
-        <CardSection style={styles.errorContainerStyle}>
+        <View style={styles.errorContainerStyle}>
           <Text style={styles.errorTextStyle}>
             {this.props.error}
           </Text>
-        </CardSection>
+        </View>
       );
     }
   }
@@ -95,13 +103,16 @@ class LoginForm extends Component {
                   />
                 </CardSection>
 
-                {this.renderErrors()}
 
               </Card>
+              {this.renderErrors()}
               <View style={{ flex: 0, height: 46, marginTop: 20 }}>
-                {this.renderButton()}
+                <Button onPress={this.onButtonPress.bind(this)}>
+                  Login
+                </Button>
               </View>
             </View>
+            {this.renderLoader()}
           </KeyboardAvoidingView>
         </Image>
       </View>
@@ -134,21 +145,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingTop: 100,
+    position: 'relative',
   },
   loginFormStyle: {
-    width: 300
+    width: 300,
   },
   errorContainerStyle: {
     padding: 10,
-    backgroundColor: '#f33'
+    backgroundColor: '#f33',
+    flex: 0,
+    width: 300,
+    alignSelf: 'center',
   },
   errorTextStyle: {
-    flex: 1,
+    flex: 0,
     fontSize: 15,
     alignSelf: 'center',
     color: '#fff',
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
+  loadingStyle: {
+    // flex: 0,
+    position: 'absolute',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  },
 });
 
 const mapStateToProps = ({ auth }) => {
