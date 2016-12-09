@@ -9,6 +9,8 @@ import EmployeeCreate from './components/EmployeeCreate';
 import EmployeeEdit from './components/EmployeeEdit';
 import { logoutUser } from './actions';
 
+const backButtonImage = require('./images/back-chevron.png');
+
 class RouterComponent extends Component {
   componentWillMount() {
     console.log(this.props);
@@ -46,6 +48,7 @@ class RouterComponent extends Component {
             leftButtonTextStyle={styles.buttonStyle}
             rightButtonTextStyle={styles.buttonStyle}
             sceneStyle={{ paddingTop: 65 }}
+            backButtonImage={backButtonImage}
           />
           <Scene
             key="employeeEdit"
@@ -55,6 +58,7 @@ class RouterComponent extends Component {
             leftButtonTextStyle={styles.buttonStyle}
             rightButtonTextStyle={styles.buttonStyle}
             sceneStyle={{ paddingTop: 65 }}
+            backButtonImage={backButtonImage}
           />
         </Scene>
       </Router>

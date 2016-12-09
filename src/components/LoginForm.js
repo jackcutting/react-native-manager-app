@@ -6,7 +6,7 @@ import { Card, CardSection, Input, Button, Spinner } from './common';
 
 // import authBackground from '../images/auth-bg.png';
 
-const authBackground = require('../images/auth-bg.png');
+const authBackground = require('../images/bg.jpg');
 const managrLogo = require('../images/managr-logo.png');
 
 class LoginForm extends Component {
@@ -76,7 +76,7 @@ class LoginForm extends Component {
           source={authBackground}
           // source={{ uri: 'https://facebook.github.io/react/img/logo_og.png' }}
           style={styles.backgroundImageStyle}
-          resizeMode="cover"
+          // resizeMode="cover"
         >
           <KeyboardAvoidingView behavior="padding" style={styles.loginWrapperStyle}>
             <View style={{ position: 'relative' }}>
@@ -133,6 +133,9 @@ const styles = StyleSheet.create({
   },
   backgroundImageStyle: {
     flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'cover'
     // width: 300,
     // height: 300,
     // backgroundColor: '#f0f'

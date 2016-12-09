@@ -4,7 +4,8 @@ import {
   EMPLOYEE_UPDATE,
   EMPLOYEE_CREATE,
   EMPLOYEES_FETCH_SUCCESS,
-  EMPLOYEE_SAVE_SUCCESS
+  EMPLOYEE_SAVE_SUCCESS,
+  CLEAR_FORM
 } from './types';
 
 export const employeeUpdate = ({ prop, value }) => {
@@ -61,4 +62,10 @@ export const employeeDelete = ({ uid }) => {
           Actions.employeeList({ type: 'reset' });
         });
     };
+};
+
+export const clearForm = () => {
+  return {
+    type: CLEAR_FORM
+  };
 };

@@ -33,7 +33,6 @@ class EmployeeList extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <View style={styles.containerStyle}>
         <ListView
