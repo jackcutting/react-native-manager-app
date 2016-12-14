@@ -7,6 +7,7 @@ import LoginForm from './components/LoginForm';
 import EmployeeList from './components/EmployeeList';
 import EmployeeCreate from './components/EmployeeCreate';
 import EmployeeEdit from './components/EmployeeEdit';
+import DrawerWrapper from './components/DrawerWrapper';
 import { logoutUser } from './actions';
 
 const backButtonImage = require('./images/back-chevron.png');
@@ -19,47 +20,49 @@ class RouterComponent extends Component {
   render() {
     return (
       <Router>
-        <Scene key="loading" initial>
-          <Scene key="home" component={Home} title="Home" hideNavBar />
-        </Scene>
-        <Scene key="auth">
-          <Scene key="login" component={LoginForm} title="Please Login" hideNavBar />
-        </Scene>
-        <Scene key="main" navigationBarStyle={styles.navBarStyle}>
-          <Scene
-            key="employeeList"
-            component={EmployeeList}
-            title="Employees"
-            titleStyle={styles.titleStyle}
-            rightTitle="Add"
-            onRight={() => Actions.employeeCreate()}
-            leftTitle="Logout"
-            onLeft={() => this.props.logoutUser()}
-            leftButtonTextStyle={styles.buttonStyle}
-            rightButtonTextStyle={styles.buttonStyle}
-            initial
-            sceneStyle={{ paddingTop: 65 }}
-          />
-          <Scene
-            key="employeeCreate"
-            component={EmployeeCreate}
-            title="Create Employee"
-            titleStyle={styles.titleStyle}
-            leftButtonTextStyle={styles.buttonStyle}
-            rightButtonTextStyle={styles.buttonStyle}
-            sceneStyle={{ paddingTop: 65 }}
-            backButtonImage={backButtonImage}
-          />
-          <Scene
-            key="employeeEdit"
-            component={EmployeeEdit}
-            title="Edit Employee"
-            titleStyle={styles.titleStyle}
-            leftButtonTextStyle={styles.buttonStyle}
-            rightButtonTextStyle={styles.buttonStyle}
-            sceneStyle={{ paddingTop: 65 }}
-            backButtonImage={backButtonImage}
-          />
+        <Scene key="drawer" component={DrawerWrapper} open={false}>
+          <Scene key="loading" initial>
+            <Scene key="home" component={Home} title="Home" hideNavBar />
+          </Scene>
+          <Scene key="auth">
+            <Scene key="login" component={LoginForm} title="Please Login" hideNavBar />
+          </Scene>
+          <Scene key="main" navigationBarStyle={styles.navBarStyle}>
+            <Scene
+              key="employeeList"
+              component={EmployeeList}
+              title="Employees"
+              titleStyle={styles.titleStyle}
+              rightTitle="Add"
+              onRight={() => Actions.employeeCreate()}
+              // leftTitle="Logout"
+              // onLeft={() => this.props.logoutUser()}
+              // leftButtonTextStyle={styles.buttonStyle}
+              rightButtonTextStyle={styles.buttonStyle}
+              initial
+              sceneStyle={{ paddingTop: 65 }}
+            />
+            <Scene
+              key="employeeCreate"
+              component={EmployeeCreate}
+              title="Create Employee"
+              titleStyle={styles.titleStyle}
+              leftButtonTextStyle={styles.buttonStyle}
+              rightButtonTextStyle={styles.buttonStyle}
+              sceneStyle={{ paddingTop: 65 }}
+              backButtonImage={backButtonImage}
+            />
+            <Scene
+              key="employeeEdit"
+              component={EmployeeEdit}
+              title="Edit Employee"
+              titleStyle={styles.titleStyle}
+              leftButtonTextStyle={styles.buttonStyle}
+              rightButtonTextStyle={styles.buttonStyle}
+              sceneStyle={{ paddingTop: 65 }}
+              backButtonImage={backButtonImage}
+            />
+          </Scene>
         </Scene>
       </Router>
     );

@@ -1,0 +1,12 @@
+[
+  {
+    "id": 0,
+    "title": "My Account",
+    "action": ""
+  },
+  {
+    "id": 0,
+    "title": "Logout",
+    "action": "logout_user"
+  },
+]
