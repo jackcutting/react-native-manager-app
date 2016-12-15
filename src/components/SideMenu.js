@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, ListView, StyleSheet } from 'react-native';
+import { View, ListView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import SideMenuItem from './SideMenuItem';
 
 class SideMenu extends Component {
     componentWillMount() {
@@ -11,10 +12,12 @@ class SideMenu extends Component {
       this.dataSource = ds.cloneWithRows(this.props.sideMenuItems);
     }
 
+    onRowPress(method) {
+      this[method]();
+    }
+
     renderRow(item) {
-      return (
-        <Text>{item.title}</Text>
-      );
+      return <SideMenuItem item={item} closeDrawer={this.props.closeDrawer} />;
     }
 
     render() {
@@ -33,6 +36,11 @@ class SideMenu extends Component {
 const styles = StyleSheet.create({
   containerStyle: {
     paddingTop: 60,
+  },
+  listItemStyle: {
+    // padding: 20,
+    // borderBottomWidth: 1,
+    // borderBottomColor: '#222'
   }
 });
 

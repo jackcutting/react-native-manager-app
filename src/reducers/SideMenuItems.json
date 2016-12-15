@@ -7,6 +7,6 @@
   {
     "id": 0,
     "title": "Logout",
-    "action": "logout_user"
+    "action": "logoutUser"
   },
 ]
