@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback, AlertIOS } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { CardSection } from './common';
 import { logoutUser } from '../actions';
@@ -7,9 +7,20 @@ import { logoutUser } from '../actions';
 class SideMenuItem extends Component {
   onRowPress() {
     const action = this.props.item.action;
-    AlertIOS.alert('action: ', this.props.item.action);
     this.props.closeDrawer();
-    this.props[action]();
+    if (typeof this.props[action] === 'function') {
+      console.log('Prop method');
+      this.props[action]();
+    } else if (typeof this[action] === 'function') {
+      console.log('Class method');
+      this[action]();
+    } else {
+      Alert.alert('Method does not exist', `action: ${this.props.item.action}`);
+    }
+  }
+
+  myAccount() {
+    console.log('My Account');
   }
 
   render() {

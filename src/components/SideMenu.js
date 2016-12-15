@@ -3,34 +3,37 @@ import { View, ListView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import SideMenuItem from './SideMenuItem';
 
+let closeDrawer;
+
 class SideMenu extends Component {
-    componentWillMount() {
-      const ds = new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2
-      });
+  componentWillMount() {
+    closeDrawer = this.props.closeDrawer;
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
 
-      this.dataSource = ds.cloneWithRows(this.props.sideMenuItems);
-    }
+    this.dataSource = ds.cloneWithRows(this.props.sideMenuItems);
+  }
 
-    onRowPress(method) {
-      this[method]();
-    }
+  onRowPress(method) {
+    this[method]();
+  }
 
-    renderRow(item) {
-      return <SideMenuItem item={item} closeDrawer={this.props.closeDrawer} />;
-    }
+  renderRow(item) {
+    return <SideMenuItem item={item} closeDrawer={closeDrawer} />;
+  }
 
-    render() {
-      return (
-        <View style={styles.containerStyle}>
-          <ListView
-            enableEmptySections
-            dataSource={this.dataSource}
-            renderRow={this.renderRow}
-          />
-        </View>
-      );
-    }
+  render() {
+    return (
+      <View style={styles.containerStyle}>
+        <ListView
+          enableEmptySections
+          dataSource={this.dataSource}
+          renderRow={this.renderRow}
+        />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
